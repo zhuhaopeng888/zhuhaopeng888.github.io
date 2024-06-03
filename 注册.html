@@ -1,0 +1,239 @@
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>注册</title>  
+<style>
+
+    body {
+    font-family: Arial, sans-serif;  
+    margin: 0;  /*外边距*/
+    padding: 20px;  /*内边距*/
+    background-color: white;
+    background-image: url(images/注册.png);
+    background-size: cover;/*完全覆盖元素的背景区域,不产生拼接和重复*/
+    } 
+
+    header a {  
+    color: #007BFF;  
+    text-decoration: none;/*取消下划线*/
+    }  
+
+    header a:hover{
+        color: black;
+        background-color: tomato;
+        padding: 5px;
+    }
+    
+    header {  
+    text-align: center;  
+    }  
+  
+    h1 {  
+    color:black;  
+    }
+      
+/*表单样式*/
+    main {  
+    max-width: 400px;/**/  
+    margin: 0 auto;/*0表示上下外边距为0，auto表示左右外边距自动计算，通常用于水平居中元素*/  
+    background-color:lavender;  
+    padding: 30px;  
+    border-radius: 5px;/*圆角效果*/  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);/*盒子阴影效果,*/  
+    /*阴影的偏移量是0（水平和垂直方向都没有偏移），模糊半径是10像素，
+    颜色是黑色（rgba(0, 0, 0, 0.1)表示黑色，但透明度为0.1，即10%的不透明度）*/
+    }  
+  
+    form {  
+    display: flex;/*fkexbox布局,用来在容器中更好地分布空间和对齐子元素*/  
+    flex-direction: column;/*元素在容器中如何排列，元素将垂直堆叠，每个元素都位于前一个元素的下方*/  
+    }  
+  
+    form div {  
+    margin-bottom: 15px;/*每个div下的外边距为15像素,让表单元素好看*/  
+    }  
+  
+    label {  
+    display: block;/*将元素设置为块级元素*/  
+    margin-bottom: 5px;/*每个label下的外边距为5像素，有间隔，才好看*/  
+    }  
+  
+    /*设定input元素的样式，使它们具有相同的宽度、内边距、圆角边框和边框颜色*/
+    input[type="text"],/*通常使用type="text"来接收用户的任意文本输入*/ 
+    input[type="name"], 
+    input[type="email"],
+    input[type="telephone"] , 
+    input[type="password"], 
+    input[type="date"] {  
+    width: 100%;  
+    padding: 8px;  
+    border-radius: 4px;  
+    border: 1px solid #ccc;  
+    }  
+  
+    button[type="submit"] {  
+    padding: 10px 20px;  
+    background-color:tomato;  
+    color: white;  
+    border: none;/*去除元素边框，例子按钮和输入框*/  
+    border-radius: 4px;/*圆角效果*/  
+    cursor: pointer;/*鼠标指针样式*/
+    /*设置当鼠标悬停在元素上时，鼠标指针的样式变为“pointer”（通常表现为小手形状）。
+    这通常用于表明元素是可以点击的，比如按钮或链接*/
+    }  
+  
+    button[type="submit"]:hover {  
+    background-color:tomato;  
+    }
+
+    button[type="reset"] {  
+    padding: 10px 20px;  
+    background-color:tomato;  
+    color: white;  
+    border: none;  
+    border-radius: 4px;  
+    cursor: pointer;  
+    }  
+  
+    button[type="reset"]:hover {  
+    background-color:tomato;  
+    }  
+  
+    footer {  
+    text-align: center;  
+    margin-top: 20px;/*上外边距*/  
+    color: black;  
+    }
+
+    :checked {/*伪类选择器,用于单选框和复选框,这里是点击后放大元素*/
+        height: 20px;
+        width: 20px;
+    }
+
+    :required {/*必填和可选伪类选择器*/
+        outline: 1px solid #ccc;
+    }
+
+    input:valid {/*合法和非法的伪类选择器*/
+        border: 1px solid #ccc;
+    }
+
+    input:invalid {/*合法和非法的伪类选择器*/
+        border: 1px solid red;
+    }
+
+    input:out-of-range {
+        border: 2px solid red;
+    }
+</style> 
+</head>  
+<body>  
+  
+<header>  
+    <h1>注册</h1>
+    <p>有账号？<a href="登录.html" target="_blank">立即登录</a></p>    
+</header>  
+  
+<main>   
+    <form action=".php" method="post" autocomplete="off">   
+        <div>  
+            <label for="username">用户名:</label>  
+            <input type="text" id="username" name="username" required autofocus placeholder="要求输入6-16位字符，可包含字母、数字和下划线" value="日月星辰">  
+        </div>
+        <div>
+            <label for="gender">性别:</label>
+            男：<input type="radio" name="sex">
+            女：<input type="radio" name="sex">
+        </div>
+        <div>
+            <label for="age">年龄：</label>
+            <input type="number" id="age" name="age" min="1" max="120" step="1" value="19">
+        </div>
+        <div>
+            <label for="birthday">出生日期</label>
+            <input type="date" name="birthday" id="birthday" placeholder="请输入出生日期">      
+        </div>
+        <div>  
+            <label for="name">账号:</label>  
+            <input type="name" id="name" name="name" required>  
+        </div>  
+        <div>  
+            <label for="password">密码:</label>  
+            <input type="password" id="password" name="password" required placeholder="要求输入8-16位字符，包含大小写字母和数字">  
+        </div>  
+        <div>  
+            <label for="confirm-password">确认密码:</label>  
+            <input type="password" id="confirm-password" name="confirm-password" required placeholder="要求输入8-16位字符，包含大小写字母和数字">  
+        </div>
+        <div>  
+            <label for="telephone">电话:</label>  
+            <input type="telephone" id="telephone" name="telephone" required placeholder="要求输入11位数字">  
+        </div>  
+        <div>  
+            <label for="email">邮箱:</label>  
+            <input type="email" id="email" name="email" required placeholder="要求输入有效的邮箱地址">  
+        </div>
+        <div>
+            <label>  
+                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>  
+                我同意<a href="用户协议.html" target="_blank">用户协议</a>和<a href="隐私政策.html" target="_blank">隐私政策</a>  
+            </label>
+            <div>
+                <label>  
+                    <input type="checkbox" id="disagreeTerms" name="disagreeTerms">  
+                    我不同意<a href="用户协议.html" target="_blank">用户协议</a>和<a href="隐私政策.html" target="_blank">隐私政策</a>  
+                </label>
+            </div>
+        </div>
+        <div>
+            <button type="submit" onclick="return checkTerms()">注册</button>
+            <button type="reset">重设</button> 
+        </div>
+    </form>
+</main>  
+  
+<footer>  
+    <p>版权信息 &copy; 2024 重庆网站</p>  
+</footer>
+
+<script>
+     document.getElementById('password').addEventListener('keydown', function(e) {    
+    if (e.key === 'Enter') {    
+        e.preventDefault(); // 阻止回车键的默认行为  
+        var passwordInput = document.getElementById('password');    
+        var password = passwordInput.value;    
+        var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/;    
+  
+        if (!passwordRegex.test(password)) {    
+            alert("密码必须为8-16位，且包含大小写字母和数字");    
+            // 密码不符合要求，自动清除输入框内容  
+            passwordInput.value = ''; // 设置输入框的value为空字符串  
+            passwordInput.focus(); // 将焦点重新设置回密码输入框  
+        } else {    
+            // 密码符合要求  
+            alert("密码验证通过！");    
+            // 在此处可以执行后续操作，如提交表单等  
+        }    
+    }    
+});
+ //可能需要改进！！！，但是可以正常运行
+ function checkTerms() {
+        var agreeCheckbox = document.getElementById('agreeTerms');
+        var disagreeCheckbox = document.getElementById('disagreeTerms');
+
+        if (agreeCheckbox.checked && !disagreeCheckbox.checked) {
+            return true; // 允许提交表单
+        } else if (agreeCheckbox.checked && disagreeCheckbox.checked) {
+            alert('您不能同时同意和不同意用户协议和隐私政策');
+            disagreeCheckbox.checked = false; // 清除不同意的选择
+            return false; // 阻止提交表单
+        } else {
+            alert('请勾选同意用户协议和隐私政策');
+            return false; // 阻止提交表单
+        }
+    }
+</script>  
+</body>  
+</html>

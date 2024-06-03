@@ -1,0 +1,157 @@
+
+
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>登录</title> 
+<style>
+
+body {
+    font-family: Arial, sans-serif;/*字体*/  
+    margin: 0;  
+    padding: 20px;  
+    background-color: #f4f4f4;
+    background-image: url(images/登录.png);
+    background-size: cover;/*图片覆盖整个元素*/  
+}
+
+header {  
+    text-align: center;  
+}
+
+h1 {  
+    color:black;  
+}  
+  
+header p {  
+    margin-top: 10px;  
+}  
+  
+header a {  
+    color: #007BFF;  
+    text-decoration: none;  
+}  
+  
+header a:hover {  
+    color: black;
+    background-color: tomato;
+    padding: 5px;  
+}  
+  
+main {  
+    max-width: 400px;  
+    margin: 0 auto;  
+    background-color:lightgoldenrodyellow;  
+    padding: 20px;  
+    border-radius: 5px;  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
+}  
+  
+form {  
+    display: flex;  
+    flex-direction: column;  
+}  
+  
+form div {  
+    margin-bottom: 15px;  
+}  
+  
+label {  
+    display: block;  
+    margin-bottom: 5px;  
+}  
+  
+input[type="name"], 
+input[type="zhanghao"], 
+input[type="password"] {  
+    width: 100%;  
+    padding: 8px;  
+    border-radius: 4px;  
+    border: 1px solid #ccc;  
+}  
+  
+button[type="submit"] {  
+    padding: 10px 20px;  
+    background-color:tomato;  
+    color: white;  
+    border: none;  
+    border-radius: 4px;  
+    cursor: pointer;  
+}  
+  
+button[type="submit"]:hover {  
+    background-color:tomato;  
+}
+
+button[type="reset"] {  
+    padding: 10px 20px;  
+    background-color:tomato;  
+    color: white;  
+    border: none;  
+    border-radius: 4px;  
+    cursor: pointer;  
+}  
+  
+button[type="reset"]:hover {  
+    background-color:tomato;  
+}
+    
+footer {  
+    text-align: center;  
+    margin-top: 20px;  
+    color: black;  
+}
+
+</style>
+</head>  
+<body>  
+  
+<header>  
+    <h1>登录</h1>  
+    <p style="color:black;">还没有账号？<a href="注册.html" target="_blank">立即注册</a></p>  
+</header>  
+  
+<main>  
+    <form action=".php" method="post" autocomplete="off" onsubmit="return validateForm()">
+        <div>
+            <label for="name">用户名:</label>
+            <input type="name" id="name" name="name" required autofocus autocomplete="on" value="日月星辰">
+        </div> 
+        <div>  
+            <label for="zhanghao">账号:</label>  
+            <input type="zhanghao" id="zhanghao" name="zhanghao" required autofocus autocomplete="on">  
+        </div>  
+        <div>  
+            <label for="password">密码:</label>  
+            <input type="password" id="password" name="password" required>  
+        </div>  
+        <div>  
+            <button type="submit">登录</button>
+            <button type="reset">重设</button>
+        </div>  
+    </form>  
+    <div id="error-message" role="alert"></div>  
+</main>  
+  
+<footer>  
+    <p>版权信息 &copy; 2024 重庆网站</p>  
+</footer>  
+  <script>
+    function validateForm() {
+        var name = document.getElementById('name').value;
+        var zhanghao = document.getElementById('zhanghao').value;
+        var password = document.getElementById('password').value;
+
+        if (name.trim() === '' || zhanghao.trim() === '' || password.trim() === '') {
+            alert('请正确输入用户名、账号和密码');
+            return false; // 阻止表单提交
+        }
+
+        return true; // 允许表单提交
+    }
+</script>
+</body>  
+</html>
+

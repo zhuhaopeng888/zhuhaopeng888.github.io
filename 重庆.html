@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keyswords" content="重庆">
+        <meta name="description" content="重庆">
+        <meta name="author" content="zhp">
+        <title>重庆首页</title>
+        <style>
+            /*------（start）------*/
+            body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            }
+            .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #f0f0f0;
+            }
+            .logo {
+            display: flex;
+            align-items: center;
+            }
+            .logo img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            }
+            .logo img:hover {
+                transform: scale(1.2) ;/*水平和竖直放大元素1.2倍*/
+            }
+            .search-box {
+                position: relative;
+            }
+            .search-box input[type="text"] {
+                padding: 5px 30px 5px 10px; /* 调整输入框内边距，使得搜索图标不会重叠 */
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            .search-box button {
+                position: absolute;
+                right: 5px; /* 调整搜索按钮的位置 */
+                top: 50%;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+            .search-box button img {
+                width: 20px; /* 设置图标的宽度 */
+                height: 20px; /* 设置图标的高度 */
+            }
+            .navigation {
+                background-color: lightsteelblue;/*导航栏背景颜色*/
+                text-align: center;/*导航栏居中显示*/
+            }
+            .navigation a {
+                color: black;/*导航栏字体颜色*/
+                padding: 12px 16px;/*大小*/
+                display: inline-block;/*行内显示，有高度和宽度*/
+                text-decoration: none;/*取消下划线*/
+            }
+            .navigation a:hover {
+                background-color: white;/*当鼠标移上去的时候改变背景颜色*/
+                opacity: 0.5;/*设置透明度*/
+            }
+            .nav {
+                position: relative;
+                display: inline-block;
+            }
+            .nav-content {
+                display: none;
+                position: absolute;
+                background-color:#ccc;
+                min-width: 150px; /* 调整宽度以容纳两列 */
+                z-index: 1;
+                column-count: 2; /* 将下拉列表分成两列 */
+            }
+            .nav:hover .nav-content {
+                display: block;
+            }
+            .nav-content a {
+                color:black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                background-color: #ccc;
+            }
+            /*------（end）------*/
+            /*------轮播图效果（start）------*/
+            .box {
+                width: 1400px;
+                height: 320px;/*！可修改*/
+                position: relative;
+                margin: 0 auto;/*轮播图水平居中*/
+            }
+            .box-img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 0;/*透明设置，设置为完全透明*/
+                transition: all 1.5s;/*实现平滑过渡，有淡入淡出的效果*/
+            }
+            .box-img:nth-child(1) {/*选择父元素的第一个子元素*/
+                opacity: 1;/*第一张图片设置为完全不透明*/
+            }
+            .box-left {
+                position: absolute;
+                width: 35px;
+                height: 70px;
+                background-color:#00000065;
+                color: #ccc;
+                top: 125px;/*！可修改*/
+                border-radius: 0 5px 5px 0;
+                text-align: center;
+                line-height: 70px;
+                font-size: 30px;
+            }
+            .box-left:hover {
+                background-color: #00000075;
+                color: #fff;
+                padding: 1px;
+            }
+            .box-right {
+                position: absolute;
+                right: 0;
+                width: 35px;
+                height: 70px; 
+                background-color:#00000065;
+                color: #ccc;
+                top: 125px;/*！可修改*/
+                border-radius: 5px 0 0 5px;
+                text-align: center;
+                line-height: 70px;
+                font-size: 30px;
+            }
+            .box-right:hover {
+                background-color: #00000075;
+                color: #fff;
+                padding: 1px;
+            }
+            .box-xiaoyuandian {
+                position: absolute;
+                bottom: 30px;
+                right: 100px;
+            }
+            .box-xiaoyuandian>ul {
+                padding: 0;
+                margin: 0;
+                list-style: none;/*用于列表元素<ul>,<li>,<ol>,移除了列表项的默认标记(例如，圆点或数字)*/
+            }
+            .box-xiaoyuandian li {
+                width: 14px;
+                height: 14px;
+                background-color: #ccc;
+                border-radius: 100%;
+                float: left;
+                margin-left: 10px;
+            }
+            .box-xiaoyuandian li:hover {
+                background-color: #fff;
+            }
+            .box-xiaoyuandian li:nth-child(1) {
+                background-color: #fff;
+            }
+            /*------轮播图效果（end）------*/
+            /*主体（start）*/
+            .zhuti {
+                display: flex;/*flex布局*/
+                justify-content: center;/*水平居中*/
+                margin: 0px;/*上下左右的外边距设为零*/
+            }
+            .zhuti-left, .zhuti-right {
+                width: 50%; /* 设置左右两侧元素的宽度为50% */
+                margin: 0 auto; /* 水平居中 */
+            }
+            #zhuti-left {/*主体左边部分*/
+                float: left;
+                padding: 5px;
+                width: 250px;
+                background-color: lightblue;
+            }
+            #zhuti-left img {/*左边图片设置*/
+                width: 200px;
+                height: 190px;
+                display: block; /* 确保img作为块级元素处理 */  
+                margin: auto; /* 水平居中图片 */ 
+            }
+            #zhuti-left img:hover{
+                transform: scale(1.1) ;/*水平和竖直放大元素1.25倍*/
+            }
+            #zhuti-left a:hover{
+                color: rgb(211, 35, 35);
+            }
+            
+            #zhuti-left p {/*左边文字设置*/
+                letter-spacing: 2px;/*字间距*/
+                text-indent: 2em;
+                line-height: 1.5em;
+            }
+            
+            #zhuti-right {/*右边整体设置*/
+                float: left;/*左浮动*/
+                width: 800px;
+                height: 1500px;
+                padding: 5px;
+                background-color: lemonchiffon;
+                margin-left: 40px;
+            }
+            
+            #zhuti-right p {/*右边文字设置*/
+                letter-spacing: 2px;
+                text-indent: 2em;
+                line-height: 1.5em;
+            }
+            
+            #zhuti-right img {/*右边图片设置*/
+                width: 170px;
+                height: 600px;
+                border: 2px #cc66 ridge;
+            }
+            
+            #zhuti-right ul {/*右边列表设置图片*/
+                list-style-type: none;/*列表样式无*/
+            }
+            
+            #zhuti-right li {
+                float: left;
+            }
+            /*主体（end）*/
+            /*图片轮播，滚动（start）*/
+            /*------------------------图片滚动 --------------------------*/
+            #photo {
+                display: flex;
+                width: 100%; /* 使用百分比宽度适应不同屏幕 */
+                height: 250px;
+                overflow: hidden; /* 隐藏溢出部分 */
+            }
+            #photo img {
+                width: 200px;
+                height: 100%;
+                object-fit: cover; /* 保持图片比例并填充整个容器 */
+            }
+            .image-container {
+                height: 170px; /* 设置容器的高度为170px */
+                overflow: hidden; /* 隐藏溢出部分 */
+            }
+            #ul{
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                animation: scroll 40s linear infinite; /* 图片滚动动画 */
+            }
+            #ul li {/*这里定位了ul，不然对轮播图产生影响了*/
+                height: 170px; /* 设置图片的高度为170px */
+            }
+            #ul li img {
+                height: 100%;
+            }
+            @keyframes scroll {
+                0% {
+                    transform: translateX(3%);/*开始位置*/
+                }
+                100% {
+                    transform: translateX(-100%); /* 图片向左滚动 */
+                }
+            }
+            /*图片轮播，滚动（end）*/
+            /*------底部（start）-------*/
+            .footer {
+                margin-top: 10px;
+                clear: both;/*清楚浮动*/
+                width: 100%;
+                height: 70px;
+                background-color:#ccc;
+                font:  14px/20px 宋体;/*文字样式*/
+                text-align: center;
+            }
+            .footer p{
+                margin-top: 10px;
+            }
+            #footer-photo {
+                /*尾部图片*/
+                width: 100px;
+                height: 70px;
+                float: right;/*右浮动*/
+                padding: 0px;/*内边距*/
+            }
+            #footer-photo:hover {
+                opacity: 0.5;
+            }
+            #footer-a {
+                text-decoration: none;
+            }
+            #footer-a:hover {
+                padding: 3px;
+                color: black;
+            }
+            /*------底部（end）-------*/
+        </style>
+    </head>
+    <body>
+        <!--导航栏-->
+        <div class="header">
+            <div class="logo">
+                <img src="images/1.png" alt="重庆地标">
+                <span style="font-size: large;font-weight: bold;">重庆 chongqing</span>
+            </div>
+            <div>
+                <span style="text-align: center;color: black;font-weight: bolder;">下一站， 山城重庆！</span>
+            </div>
+            <div class="search-box">
+                <button type="submit" id="searchButton"><img src="images/搜索图标.png" alt="搜索图标"></button>
+                <input type="text" placeholder="重庆有啥好玩的地方？" id="searchInput" onkeydown="searchOnEnter(event)">
+            </div>
+        </div>
+        <div class="navigation">
+            <a href="#" target="_blank"><strong>首页</strong></a>
+            <div class="nav">
+                <a href="重庆地图.html" target="_blank"><strong>重庆地图</strong></a>
+            </div>
+            <div class="nav">
+                <a href="热门景点.html" target="_blank"><strong>热门景点</strong></a>
+                <div class="nav-content">
+                    <!-- 第一列链接 -->
+                    <a href="https://baike.baidu.com/item/%E6%B4%AA%E5%B4%96%E6%B4%9E/9967099?fr=ge_ala" target="_blank">洪崖洞</a>
+                    <a href="https://baike.baidu.com/item/%E6%B8%A3%E6%BB%93%E6%B4%9E%E9%9B%86%E4%B8%AD%E8%90%A5/2810017?fr=ge_ala" target="_blank">渣宰洞</a>
+                    <a href="https://baike.baidu.com/item/%E6%9D%8E%E5%AD%90%E5%9D%9D%E7%AB%99/15278133?fr=ge_ala" target="_blank">李子坝轻轨</a>
+                    <a href="https://baike.baidu.com/item/%E6%8A%97%E6%88%98%E8%83%9C%E5%88%A9%E7%BA%AA%E5%8A%9F%E7%A2%91%E6%9A%A8%E4%BA%BA%E6%B0%91%E8%A7%A3%E6%94%BE%E7%BA%AA%E5%BF%B5%E7%A2%91/23289792?fr=ge_ala" target="_blank">解放碑</a>
+                    <!-- 第二列链接 -->
+                    <a href="https://baike.baidu.com/item/%E4%B9%8C%E6%B1%9F%E7%94%BB%E5%BB%8A/4159990?fr=ge_ala" target="_blank">乌江画廊</a>
+                    <a href="https://baike.baidu.com/item/%E8%9A%A9%E5%B0%A4%E4%B9%9D%E9%BB%8E%E5%9F%8E/17511708?fr=ge_ala" target="_blank">九黎城</a>
+                    <a href="https://baike.baidu.com/item/%E4%BB%99%E5%A5%B3%E5%B1%B1/15249?fr=ge_ala" target="_blank">仙女山</a>
+                    <a href="https://baike.baidu.com/item/%E5%A4%A9%E7%94%9F%E4%B8%89%E6%A1%A5/2505339?fr=ge_ala" target="_blank">天生三桥</a>
+                    <a href="https://baike.baidu.com/item/%E9%87%8D%E5%BA%86%E5%B8%82/436625?fr=ge_ala" target="_blank"><strong>更多</strong></a>
+                </div>
+            </div>
+            <a href="https://baike.baidu.com/item/%E6%B8%9D%E8%8F%9C/1372448?fr=ge_ala" target="_blank"><strong>美食文化</strong></a>
+            <a href="https://baike.baidu.com/item/%E9%87%8D%E5%BA%86%E4%BC%A0%E7%BB%9F%E6%96%87%E5%8C%96/7534717?fromModule=search-result_lemma-recommend" target="_blank"><strong>民俗文化</strong></a>
+            <a href="重庆发展.html" target="_blank"><strong>重庆发展</strong></a>
+            <a href="https://www.qq.com/" target="_blank"><strong>新闻资讯</strong></a>
+            <a href="#" target="_blank" onclick="return showAlert();"><strong>互动社区</strong></a>
+           <div class="nav">
+                <a href="#" target="_blank" onclick="return showAlert();"><strong>个人中心</strong></a>
+                <div class="nav-content">
+                    <a href="注册.html" target="_blank">注册</a>
+                    <a href="登录.html" target="_blank">登录</a>
+                    <a href="#" target="_blank" onclick="return showAlert();">设置</a>
+                    <a href="#" target="_blank" onclick="return showAlert();"><strong>更多</strong></a>
+                </div>
+           </div>
+            <div class="nav">
+                <a href="" target="_blank"><strong>语言选择</strong></a>
+                <div class="nav-content">
+                    <a href="#" target="_blank">中文</a>
+                    <a href="#" target="_blank" onclick="return showAlert();">英文</a>
+                    <a href="#" target="_blank" onclick="return showAlert();">法语</a>
+                    <a href="#" target="_blank" onclick="return showAlert();">俄语</a>
+                    <a href="#" target="_blank" onclick="return showAlert();">德语</a>
+                    <a href="#" target="_blank" onclick="return showAlert();">日语</a>
+                    <a href="#" target="_blank" onclick="return showAlert();">韩语</a>
+                    <a href="#" target="_blank" onclick="return showAlert();"><strong>更多</strong></a>
+                </div>
+            </div>
+        </div>
+        <!----->
+        <!--轮播图-->
+        <div class="box">
+            <div class="box-img"><img src="images/1.png" alt="" width="1400" height="320"></div>
+            <div class="box-img"><img src="images/2.png" alt="" width="1400" height="320"></div>
+            <div class="box-img"><img src="images/3.png" alt="" width="1400" height="320"></div>
+            <div class="box-img"><img src="images/4.png" alt="" width="1400" height="320"></div>
+            <div class="box-img"><img src="images/5.png" alt="" width="1400" height="320"></div>
+            <div class="box-img"><img src="images/6.png" alt="" width="1400" height="320"></div>
+            <div class="box-img"><img src="images/7.png" alt="" width="1400" height="320"></div>
+            <div class="box-img"><img src="images/8.png" alt="" width="1400" height="320"></div>
+            <div class="box-img"><img src="images/9.png" alt="" width="1400" height="320"></div>
+            <div class="box-img"><img src="images/10.png" alt="" width="1400" height="320"></div>
+            <!--这里可以添加图片-->
+            <div class="box-left">&lt;</div> <!-- 向左箭头 -->
+            <div class="box-right">&gt;</div> <!-- 向右箭头 -->
+            <div class="box-xiaoyuandian">
+                <ul>
+                    <li class="button"></li>
+                    <li class="button"></li>
+                    <li class="button"></li>
+                    <li class="button"></li>
+                    <li class="button"></li>
+                    <li class="button"></li>
+                    <li class="button"></li>
+                    <li class="button"></li>
+                    <li class="button"></li>
+                    <li class="button"></li>
+                    <!--这里可以添加小圆点-->
+                </ul>
+            </div>
+        </div>
+        <!--主体-->
+        <div class="zhuti"><!--主体部分-->
+            <div class="zhuti">
+                <div id="zhuti-left"><!--主体左侧部分-->
+                    <table>
+                        <tr>
+                            <img src="images/left.png" alt="左侧图片">
+                        </tr>
+                        <h4 style="text-align: center;"></h4>
+                        <hr size="3" color="rgb(24, 24, 88)">
+                        <h3 style="text-align: center;">重庆地理</h3>
+                            <p style="text-align: justify;">
+                                重庆，位于中国西南部，长江和嘉陵江的交汇之处，是一座独具魅力的山城。
+                            </p>
+                            <P style="text-align: justify;">
+                                这座城市依山而建，建筑错落有致，层层叠叠，被誉为“山城”。
+                            </P>
+                            <P style="text-align: justify;">
+                                独特的地理特征使得重庆的景色格外壮观，无论是蜿蜒曲折的山路，还是悬崖峭壁上的建筑，都让人叹为观止。
+                            </P>
+                            <p style="text-align: justify;">
+                                重庆的气候湿润，四季分明，尤其以冬季的雾气最为出名。
+                            </p>
+                            <p style="text-align: justify;">
+                                当雾气弥漫时，整个城市仿佛笼罩在一片朦胧之中，给人一种神秘而梦幻的感觉。
+                            </p>
+                            <p style="text-align: justify;">
+                                这种独特的天气现象也为重庆增添了几分魅力。
+                            </p>
+                            <p style="text-align: justify;">
+                                除了独特的自然风光，重庆还是中国西南地区的重要经济中心之一。
+                            </p>
+                            <p style="text-align: justify;">
+                                这座城市拥有强大的工业基础和发达的交通网络，是中国西部地区的重要门户城市。
+                            </p>
+                            <p style="text-align: justify;">
+                                同时，重庆的历史文化也十分丰富，有着深厚的底蕴。
+                            </p>
+                            <p style="text-align: justify;">
+                                从古老的巴渝文化到现代的都市风情，重庆展现出了多元而独特的魅力。
+                            </p>
+                            <p style="text-align: justify;">
+                                此外，重庆的美食也是闻名遐迩的。
+                            </p>
+                            <p style="text-align: justify;">
+                                尤其是重庆火锅，以其麻辣鲜香的口感征服了无数食客的味蕾。。
+                            </p>
+                            <p style="text-align: justify;">
+                                无论是当地居民还是外来游客，都对重庆的美食赞不绝口。
+                            </p>
+                            <p style="text-align: justify;">
+                                总之，重庆是一座集自然风光、历史文化、经济发展和美食文化于一体的城市，值得人们去探索和品味。
+                            </p>
+                        </tr>
+                    </table>
+                </div>
+                <div id="zhuti-right"><!--主体右侧部分-->
+                    <table>
+                        <tr>
+                            <h2 style="text-align: center;">重庆</h2>
+                            <hr size="4" color="rgb(24, 24, 88)">
+                            <p style="font-size: large;font-weight: bold">
+                                一、地理位置与面积
+                            </p>
+                            <p style="text-align: justify;">
+                                重庆位于中国内陆西南部、长江上游地区，地处东经105°11'—110°11'、北纬28°10'—32°13'之间。它辖38个区县，总面积达到8.24万平方公里。
+                            </p>
+                            <p style="font-size: large;font-weight: bold">
+                                二、人口与民族
+                            </p>
+                            <p style="text-align: justify;">
+                                重庆的常住人口超过3200万（截至2023年末数据为3191.43万），城镇化率高达70.96%。人口以汉族为主，占93.23%，同时也有土家族、苗族等少数民族居住。
+                            </p>
+                            <p style="font-size: large;font-weight: bold">
+                                三、地形与气候
+                            </p>
+                            <p style="text-align: justify;">
+                                重庆是一座独具特色的“山城、江城”，地貌以丘陵、山地为主，其中山地占76%。它属于亚热带湿润季风气候，春早夏热、秋雨冬暖。
+                            </p>
+                            <P style="font-size: large;font-weight: bold">
+                                四、经济与发展
+                            </P>
+                            <p style="text-align: justify;">
+                                重庆是中国中西部地区唯一的直辖市，也是长江上游地区经济中心、国家重要的中心城市之一。它拥有发达的经济体系和完善的产业结构，尤其在制造业、金融业、科技创新等方面具有显著优势。近年来，重庆的经济增长迅速，2023年地区生产总值达到30145.79亿元，比上年增长6.1%。
+                            </p>
+                            <p style="font-size: large;font-weight: bold">
+                                五、历史与文化
+                            </p>
+                            <p style="text-align: justify;">
+                                重庆是一座具有3000多年历史的文化名城，是巴渝文化的发祥地。它拥有丰富的历史文化遗产和旅游资源，如世界文化遗产大足石刻、世界自然遗产武隆喀斯特等。同时，重庆也是红岩精神的起源地，在抗日战争时期和解放战争初期发挥了重要作用。
+                            </p>
+                            <p style="font-size: large;font-weight: bold">
+                                六、旅游资源
+                            </p>
+                            <p >
+                            <p style="text-align: justify;">
+                                重庆的旅游资源丰富多样，不仅有壮丽的山水风光，还有独特的历史文化景观。游客可以游览长江三峡、解放碑步行街、磁器口古镇等著名景点，感受重庆的独特魅力。
+                            </p>
+                            <p style="font-size: large;font-weight: bold">
+                                七、美食文化
+                            </p>
+                            <p style="text-align: justify;">
+                                重庆的美食文化也是其独特魅力之一。尤其是重庆火锅，以其麻辣鲜香的口感征服了无数食客的味蕾。此外，重庆小面、酸辣粉等美食也深受人们喜爱。
+                            </p>
+                        </tr>
+                        <tr>
+                            <h3 style="text-align: center;"><em>景点和美食展示</em></h3><!--滚动图片-->
+                            <hr size="4" color="rgb(24, 24, 88)">
+                            <div class="image-container">
+                                <div id="photo">
+                                    <ul id="ul">
+                                        <li><img src="images/i1.png" alt="Image 1"></li>
+                                        <li><img src="images/i2.png" alt="Image 2"></li>
+                                        <li><img src="images/i3.png" alt="Image 3"></li>
+                                        <li><img src="images/i4.png" alt="Image 4"></li>
+                                        <li><img src="images/i5.png" alt="Image 5"></li>
+                                        <li><img src="images/i6.png" alt="Image 6"></li>
+                                        <li><img src="images/i7.png" alt="Image 7"></li>
+                                        <li><img src="images/i8.png" alt="Image 8"></li>
+                                        <li><img src="images/i9.png" alt="Image 9"></li>
+                                        <li><img src="images/i10.png" alt="Image 10"></li>
+                                        <li><img src="images/i11.png" alt="Image 11"></li>
+                                        <li><img src="images/i12.png" alt="Image 12"></li>
+                                        <!-- 添加更多图片 -->
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr size="4" color="rgb(24, 24, 88)">
+                        </tr>
+                    </table>
+                    <!--底部-->
+                   <h3 style="text-align: center;">重庆地区</h3>
+                   <p style="font-size: large;">
+                        重庆市是中国四个直辖市之一，位于西南地区。它下辖26个市辖区、8个县和4个自治县，总共38个县级行政单位。
+                   </p>
+                   <p style="font-size: large;"> 
+                        这些行政单位包括渝中区、大渡口区、江北区、沙坪坝区、九龙坡区、南岸区、北碚区、渝北区、巴南区等市辖区，以及江津区、合川区、永川区、璧山区、荣昌区、大足区、铜梁区、潼南区等县和自治县。
+                   </p>
+                   <p style="font-size: large;">
+                        此外，重庆还设有两江新区、重庆高新区、重庆市万盛经济技术开发区、重庆市双桥经济技术开发区等特殊功能区。
+                   </p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <!--页尾-->
+            <img id="footer-photo" src="images/我的图片.png" alt="photo"><!--尾页右下角图片-->
+            <p><!--尾页文字-->
+                山城雾都，麻辣江湖
+            </p>
+            <!--版权信息-->
+            <p>
+                版权信息 &copy; 2024 <a href="#" target="_blank" id="footer-a">重庆网站</a>
+            </p>
+        </div>
+        <!---->
+        <!--引入jquery库，不然无法运行！-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                var index=0;//标记当前图片索引
+                var f;
+                dingshiqi();//调用函数
+                function dingshiqi(){//写一个计时器函数，关闭和重启
+                    f=setInterval(function(){
+                    if(index==$(".box-img").length-1){
+                        index=0;
+                        $(".box-img").css("opacity","0");
+                        $(".box-img").eq(index).css("opacity","1");
+                        $(".button").css("background-color","#ccc");
+                        $(".button").eq(index).css("background-color","#fff");
+                    }else{
+                        index++;
+                        $(".box-img").css("opacity","0");
+                        $(".box-img").eq(index).css("opacity","1");
+                        $(".button").css("background-color","#ccc");
+                        $(".button").eq(index).css("background-color","#fff");
+                    }
+                },4000)
+                }
+                //鼠标点击事件
+                $(".box-left").click(function(){
+                    clearInterval(f);/*暂停轮播*/
+                    /*alert(1);网页上会弹出一个警告框，显示为1，事件可以运行*/
+                    if(index==0){
+                        index=$(".box-img").length-1;
+                        $(".box-img").css("opacity","0");
+                        $(".box-img").eq(index).css("opacity","1");
+                        $(".button").css("background-color","#ccc");
+                        $(".button").eq(index).css("background-color","#fff");
+                        dingshiqi();//重启
+                    }else{
+                        index--;
+                        $(".box-img").css("opacity","0");
+                        $(".box-img").eq(index).css("opacity","1");
+                        $(".button").css("background-color","#ccc");
+                        $(".button").eq(index).css("background-color","#fff");
+                        dingshiqi();//重启
+                    }
+                })
+                $(".box-right").click(function(){
+                    clearInterval(f);
+                    if(index==$(".box-img").length-1){
+                        index=0;
+                        $(".box-img").css("opacity","0");
+                        $(".box-img").eq(index).css("opacity","1");
+                        $(".button").css("background-color","#ccc");
+                        $(".button").eq(index).css("background-color","#fff");
+                        dingshiqi();//重启
+                    }else{
+                        index++;
+                        $(".box-img").css("opacity","0");
+                        $(".box-img").eq(index).css("opacity","1");
+                        $(".button").css("background-color","#ccc");
+                        $(".button").eq(index).css("background-color","#fff");
+                        dingshiqi();//重启
+                    }
+                })
+                //鼠标移动事件
+                $(".button").mouseenter(function(){
+                    clearInterval(f);
+                    var indexx=$(this).index();/*alert(indexx);测试*/
+                    index=indexx;
+                    $(".box-img").css("opacity","0");
+                    $(".box-img").eq(index).css("opacity","1");
+                    $(".button").css("background-color","#ccc");
+                    $(".button").eq(index).css("background-color","#fff");
+                    dingshiqi();
+                })
+            })
+        </script>
+        <!--搜索-->
+        <script>
+            // 当你确定DOM已经加载完毕时（通常是在文档末尾或window.onload事件中）  
+            document.getElementById('searchButton').addEventListener('click', function(event) {  
+            event.preventDefault(); // 阻止表单的默认提交行为（如果这是在一个表单中）  
+              
+            // 这里是你的点击事件处理代码  
+            alert('搜索功能暂未完善，敬请期待！');  
+        });  
+            function searchButtonClicked() {  
+                // 搜索按钮被点击时执行的代码  
+                var searchInput = document.getElementById('searchInput');  
+                var searchTerm = searchInput.value;  
+                console.log('搜索按钮被点击，搜索词：', searchTerm);  
+                // ... 执行搜索逻辑 ...  
+            }  
+            
+            function searchOnEnter(event) {  
+                // 检测回车键（键码为13）  
+                if (event.key === 'Enter' || event.keyCode === 13) {   
+                    // 阻止表单默认的提交行为（如果有的话）  
+                    event.preventDefault();  
+                    // 调用与搜索按钮相同的函数  
+                    searchButtonClicked();  
+                    alert('搜索功能暂未完善，敬请期待！');
+                }  
+            }
+            function showAlert() {  
+            alert('该功能正在完善中，敬请期待！');  
+            return false; // 阻止链接的默认行为  
+        }    
+            </script>
+        <!---->
+    </body>
+</html>
